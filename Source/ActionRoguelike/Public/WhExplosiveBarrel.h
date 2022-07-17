@@ -16,15 +16,15 @@ class ACTIONROGUELIKE_API AWhExplosiveBarrel : public AActor
 protected:
 
 	UPROPERTY(VisibleAnywhere)
-		UStaticMeshComponent* MeshComp;
+	UStaticMeshComponent* MeshComp;
 
 	UPROPERTY(VisibleAnywhere)
-		URadialForceComponent* RadialForceComp;
+	URadialForceComponent* RadialForceComp;
 
 	virtual void PostInitializeComponents() override;
 
 	UFUNCTION()
-		void OnActorHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
+	void OnActorHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 			UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 		
 	

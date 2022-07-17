@@ -3,6 +3,7 @@
 
 #include "WhCharacter.h"
 
+#include "WhAttributeComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -26,6 +27,10 @@ AWhCharacter::AWhCharacter()
 	bUseControllerRotationYaw = false;
 
 	InteractionComp = CreateDefaultSubobject<UWhInteractionComponent>("InteractionComp");
+
+	AttributeComp = CreateDefaultSubobject<UWhAttributeComponent>("AttributeComp");
+	
+	
 }
 
 // Called when the game starts or when spawned
@@ -59,15 +64,166 @@ void AWhCharacter::MoveRight(float Value)
 
 void AWhCharacter::PrimaryAttack()
 {
+	PlayAnimMontage(AttackAnim);
 
+	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this,
+		&AWhCharacter::PrimaryAttack_TimeElasped, 0.2f);
+
+	//GetWorldTimerManager().ClearTimer(TimerHandle_PrimaryAttack);
+}
+
+void AWhCharacter::PrimaryAttack_TimeElasped()
+{
 	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
 
-	FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);
+
+	//Todo:
+	// Camera View Direction
+	FMinimalViewInfo viewInfo;
+	CameraComp->GetCameraView(0, viewInfo);
+
+	FVector traceStart = viewInfo.Location;
+	float traceScale = 3000.0f;
+	FVector traceEnd = traceStart + viewInfo.Rotation.Vector() * traceScale;
+	FHitResult Hit;
+	FCollisionObjectQueryParams ObjectQueryParams;
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
+	
+	bool bLineHit = GetWorld()->LineTraceSingleByObjectType(Hit, traceStart, traceEnd, ObjectQueryParams);
+
+	FVector ImpactLocation;
+	
+	if (bLineHit)
+	{
+		ImpactLocation = Hit.Location;
+	}
+	else
+	{
+		ImpactLocation = traceEnd;
+	}
+	
+	FVector ProjectDir = ImpactLocation - HandLocation;
+	ProjectDir.Normalize();
+
+	FRotator SpawnRotator = ProjectDir.Rotation();
+	
+	//FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);
+	FTransform SpawnTM = FTransform(SpawnRotator, HandLocation);
+	
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
+	SpawnParams.Instigator = this;
+	
 	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+}
 
+void AWhCharacter::BlackholeAttack()
+{
+	PlayAnimMontage(AttackAnim);
+
+	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this,
+		&AWhCharacter::BlackholeAttack_TimeElasped, 0.2f);
+}
+
+void AWhCharacter::BlackholeAttack_TimeElasped()
+{
+	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
+
+
+	//Todo:
+	// Camera View Direction
+	FMinimalViewInfo viewInfo;
+	CameraComp->GetCameraView(0, viewInfo);
+
+	FVector traceStart = viewInfo.Location;
+	float traceScale = 3000.0f;
+	FVector traceEnd = traceStart + viewInfo.Rotation.Vector() * traceScale;
+	FHitResult Hit;
+	FCollisionObjectQueryParams ObjectQueryParams;
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
+	
+	bool bLineHit = GetWorld()->LineTraceSingleByObjectType(Hit, traceStart, traceEnd, ObjectQueryParams);
+
+	FVector ImpactLocation;
+	
+	if (bLineHit)
+	{
+		ImpactLocation = Hit.Location;
+	}
+	else
+	{
+		ImpactLocation = traceEnd;
+	}
+	
+	FVector ProjectDir = ImpactLocation - HandLocation;
+	ProjectDir.Normalize();
+
+	FRotator SpawnRotator = ProjectDir.Rotation();
+	
+	//FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);
+	FTransform SpawnTM = FTransform(SpawnRotator, HandLocation);
+	
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	SpawnParams.Instigator = this;
+	
+	GetWorld()->SpawnActor<AActor>(BlackholeProjectileClass, SpawnTM, SpawnParams);
+}
+
+void AWhCharacter::DashAttack()
+{
+	PlayAnimMontage(AttackAnim);
+
+	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this,
+		&AWhCharacter::DashAttack_TimeElasped, 0.2f);
+}
+
+void AWhCharacter::DashAttack_TimeElasped()
+{
+	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
+
+
+	//Todo:
+	// Camera View Direction
+	FMinimalViewInfo viewInfo;
+	CameraComp->GetCameraView(0, viewInfo);
+
+	FVector traceStart = viewInfo.Location;
+	float traceScale = 3000.0f;
+	FVector traceEnd = traceStart + viewInfo.Rotation.Vector() * traceScale;
+	FHitResult Hit;
+	FCollisionObjectQueryParams ObjectQueryParams;
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
+	
+	bool bLineHit = GetWorld()->LineTraceSingleByObjectType(Hit, traceStart, traceEnd, ObjectQueryParams);
+
+	FVector ImpactLocation;
+	
+	if (bLineHit)
+	{
+		ImpactLocation = Hit.Location;
+	}
+	else
+	{
+		ImpactLocation = traceEnd;
+	}
+	
+	FVector ProjectDir = ImpactLocation - HandLocation;
+	ProjectDir.Normalize();
+
+	FRotator SpawnRotator = ProjectDir.Rotation();
+	
+	//FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);
+	FTransform SpawnTM = FTransform(SpawnRotator, HandLocation);
+	
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	SpawnParams.Instigator = this;
+	
+	GetWorld()->SpawnActor<AActor>(DashProjectileClass, SpawnTM, SpawnParams);
 }
 
 void AWhCharacter::PrimaryInteract()
@@ -104,5 +260,8 @@ void AWhCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	
 	PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &AWhCharacter::PrimaryAttack);
 	PlayerInputComponent->BindAction("PrimaryInteract", IE_Pressed, this, &AWhCharacter::PrimaryInteract);
+	PlayerInputComponent->BindAction("BlackholeAttack", IE_Pressed, this, &AWhCharacter::BlackholeAttack);
+	PlayerInputComponent->BindAction("DashAttack", IE_Pressed, this, &AWhCharacter::DashAttack);
+	
 }
 

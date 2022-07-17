@@ -4,20 +4,21 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "WhMagicProjectile.generated.h"
+#include "WhProjectile.generated.h"
+
 
 class USphereComponent;
 class UProjectileMovementComponent;
 class UParticleSystemComponent;
 
 UCLASS()
-class ACTIONROGUELIKE_API AWhMagicProjectile : public AActor
+class ACTIONROGUELIKE_API AWhProjectile : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AWhMagicProjectile();
+	AWhProjectile();
 
 protected:
 
@@ -29,11 +30,7 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UParticleSystemComponent* EffectComp;
-
-	UFUNCTION(BlueprintCallable)
-	void OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
-
-
+	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
