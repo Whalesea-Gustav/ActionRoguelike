@@ -1,11 +1,11 @@
 {
     "Version": "1.1",
     "Data": {
-        "Source": "a:\\aprojects\\ationroguelike\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\src\\rd_framework_cpp\\src\\main\\util\\thread_util.cpp",
+        "Source": "f:\\projects\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\src\\rd_framework_cpp\\src\\main\\util\\thread_util.cpp",
         "ProvidedModule": "",
         "Includes": [
-            "a:\\aprojects\\ationroguelike\\actionroguelike\\plugins\\developer\\riderlink\\intermediate\\build\\win64\\unrealeditor\\development\\rd\\definitions.h",
-            "a:\\aprojects\\ationroguelike\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\src\\rd_framework_cpp\\src\\main\\util\\thread_util.h",
+            "f:\\projects\\actionroguelike\\plugins\\developer\\riderlink\\intermediate\\build\\win64\\unrealeditor\\development\\rd\\definitions.h",
+            "f:\\projects\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\src\\rd_framework_cpp\\src\\main\\util\\thread_util.h",
             "d:\\visualstudio19\\vc\\tools\\msvc\\14.29.30133\\include\\thread",
             "d:\\visualstudio19\\vc\\tools\\msvc\\14.29.30133\\include\\yvals_core.h",
             "d:\\visualstudio19\\vc\\tools\\msvc\\14.29.30133\\include\\vcruntime.h",

@@ -1,11 +1,11 @@
 {
     "Version": "1.1",
     "Data": {
-        "Source": "a:\\aprojects\\ationroguelike\\actionroguelike\\plugins\\developer\\riderlink\\source\\ridershaderinfo\\ridershaderinfo.cpp",
+        "Source": "f:\\projects\\actionroguelike\\plugins\\developer\\riderlink\\source\\ridershaderinfo\\ridershaderinfo.cpp",
         "ProvidedModule": "",
         "Includes": [
-            "a:\\aprojects\\ationroguelike\\actionroguelike\\plugins\\developer\\riderlink\\intermediate\\build\\win64\\unrealeditor\\development\\ridershaderinfo\\definitions.h",
-            "a:\\aprojects\\ationroguelike\\actionroguelike\\plugins\\developer\\riderlink\\source\\ridershaderinfo\\ridershaderinfo.h",
+            "f:\\projects\\actionroguelike\\plugins\\developer\\riderlink\\intermediate\\build\\win64\\unrealeditor\\development\\ridershaderinfo\\definitions.h",
+            "f:\\projects\\actionroguelike\\plugins\\developer\\riderlink\\source\\ridershaderinfo\\ridershaderinfo.h",
             "f:\\ue_5.0\\engine\\source\\runtime\\core\\public\\modules\\moduleinterface.h",
             "f:\\ue_5.0\\engine\\source\\runtime\\core\\public\\coretypes.h",
             "f:\\ue_5.0\\engine\\source\\runtime\\core\\public\\hal\\platform.h",

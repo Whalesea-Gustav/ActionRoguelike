@@ -51,7 +51,7 @@ void USInteractionComponent::PrimaryInteract()
 	
 	for (auto LocalHit : Hits)
 	{
-		bool bBreak;
+		bool bBreak = false;
 		if (AActor* LocalHitActor = Hit.GetActor())
 		{
 			if (LocalHitActor->Implements<USGameplayInterface>())

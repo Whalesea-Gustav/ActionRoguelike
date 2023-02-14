@@ -1,12 +1,12 @@
 {
     "Version": "1.1",
     "Data": {
-        "Source": "a:\\aprojects\\ationroguelike\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\src\\rd_framework_cpp\\src\\main\\intern\\internscheduler.cpp",
+        "Source": "f:\\projects\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\src\\rd_framework_cpp\\src\\main\\intern\\internscheduler.cpp",
         "ProvidedModule": "",
         "Includes": [
-            "a:\\aprojects\\ationroguelike\\actionroguelike\\plugins\\developer\\riderlink\\intermediate\\build\\win64\\unrealeditor\\development\\rd\\definitions.h",
-            "a:\\aprojects\\ationroguelike\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\src\\rd_framework_cpp\\src\\main\\intern\\internscheduler.h",
-            "a:\\aprojects\\ationroguelike\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\src\\rd_framework_cpp\\src\\main\\scheduler\\base\\ischeduler.h",
+            "f:\\projects\\actionroguelike\\plugins\\developer\\riderlink\\intermediate\\build\\win64\\unrealeditor\\development\\rd\\definitions.h",
+            "f:\\projects\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\src\\rd_framework_cpp\\src\\main\\intern\\internscheduler.h",
+            "f:\\projects\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\src\\rd_framework_cpp\\src\\main\\scheduler\\base\\ischeduler.h",
             "d:\\visualstudio19\\vc\\tools\\msvc\\14.29.30133\\include\\functional",
             "d:\\visualstudio19\\vc\\tools\\msvc\\14.29.30133\\include\\yvals_core.h",
             "d:\\visualstudio19\\vc\\tools\\msvc\\14.29.30133\\include\\vcruntime.h",
@@ -101,8 +101,8 @@
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.22621.0\\ucrt\\math.h",
             "d:\\visualstudio19\\vc\\tools\\msvc\\14.29.30133\\include\\vcruntime_startup.h",
             "d:\\visualstudio19\\vc\\tools\\msvc\\14.29.30133\\include\\xthreads.h",
-            "a:\\aprojects\\ationroguelike\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\src\\rd_framework_cpp\\rd_framework_export.h",
-            "a:\\aprojects\\ationroguelike\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\src\\rd_framework_cpp\\src\\main\\util\\guards.h"
+            "f:\\projects\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\src\\rd_framework_cpp\\rd_framework_export.h",
+            "f:\\projects\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\src\\rd_framework_cpp\\src\\main\\util\\guards.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

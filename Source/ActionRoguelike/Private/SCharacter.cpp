@@ -84,7 +84,7 @@ void ASCharacter::PrimaryAttack_TimeElapsed()
 	
 	bool bBlockingTrace = GetWorld()->LineTraceMultiByObjectType(Hits, Start, End, ObjectQueryParams);
 
-	DrawDebugLine(GetWorld(), Start, End, FColor::Yellow, false, 2.0f, 0.0f, 1.0f);
+	DrawDebugLine(GetWorld(), Start, End, FColor::Yellow, false, 1.0f, 0.0f, 1.0f);
 	
 	FVector ImpactLocation;
 	float ImpactDistance;

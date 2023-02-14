@@ -1,11 +1,11 @@
 {
     "Version": "1.1",
     "Data": {
-        "Source": "a:\\aprojects\\ationroguelike\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\rd.cpp",
+        "Source": "f:\\projects\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\rd.cpp",
         "ProvidedModule": "",
         "Includes": [
-            "a:\\aprojects\\ationroguelike\\actionroguelike\\plugins\\developer\\riderlink\\intermediate\\build\\win64\\unrealeditor\\development\\rd\\definitions.h",
-            "a:\\aprojects\\ationroguelike\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\rd.h",
+            "f:\\projects\\actionroguelike\\plugins\\developer\\riderlink\\intermediate\\build\\win64\\unrealeditor\\development\\rd\\definitions.h",
+            "f:\\projects\\actionroguelike\\plugins\\developer\\riderlink\\source\\rd\\rd.h",
             "f:\\ue_5.0\\engine\\source\\runtime\\core\\public\\logging\\logmacros.h",
             "f:\\ue_5.0\\engine\\source\\runtime\\core\\public\\coretypes.h",
             "f:\\ue_5.0\\engine\\source\\runtime\\core\\public\\hal\\platform.h",
