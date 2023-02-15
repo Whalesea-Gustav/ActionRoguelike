@@ -63,7 +63,8 @@ protected:
 	void MoveRight(float value);
 
 	void SpawnProjectile(TSubclassOf<AActor> ClassToSpawn);
-	
+
+	void SpawnProjectile_v2(TSubclassOf<AActor> ClassToSpawn);
 	
 	void PrimaryAttack();
 	void PrimaryAttack_TimeElapsed();
@@ -74,11 +75,13 @@ protected:
 
 	void BlackholeAttack();
 	void BlackHoleAttack_TimeElaped();
-
-		
+	
 	void PrimaryInteract();
-	
-	
+
+	UFUNCTION(BlueprintCallable)
+	void OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComp, float NewHealth, float Delta);
+
+	virtual void PostInitializeComponents() override;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
