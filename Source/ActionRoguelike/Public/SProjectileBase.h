@@ -6,10 +6,12 @@
 #include "GameFramework/Actor.h"
 #include "SProjectileBase.generated.h"
 
+// class UCameraShake;
 class UParticleSystem;
 class USphereComponent;
 class UProjectileMovementComponent;
 class UParticleSystemComponent;
+class USound;
 
 UCLASS(ABSTRACT)
 class ACTIONROGUELIKE_API ASProjectileBase : public AActor
@@ -17,9 +19,12 @@ class ACTIONROGUELIKE_API ASProjectileBase : public AActor
 	GENERATED_BODY()
 
 protected:
-
+	
 	UPROPERTY(EditDefaultsOnly, Category = "Effects")
 	UParticleSystem* ImpactVFX;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UAudioComponent* AudioComp;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	USphereComponent* SphereComp;

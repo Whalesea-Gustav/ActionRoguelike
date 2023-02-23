@@ -4,6 +4,7 @@
 #include "SProjectileBase.h"
 
 #include "SMagicProjectile.h"
+#include "Components/AudioComponent.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -22,6 +23,9 @@ ASProjectileBase::ASProjectileBase()
 	EffectComp = CreateDefaultSubobject<UParticleSystemComponent>("EffectComp");
 	EffectComp->SetupAttachment(SphereComp);
 
+	AudioComp = CreateDefaultSubobject<UAudioComponent>("AudioComp");
+	AudioComp->SetupAttachment(RootComponent);
+	
 	MovementComp = CreateDefaultSubobject<UProjectileMovementComponent>("MovementComp");
 	MovementComp->InitialSpeed = 1000.0f;
 	MovementComp->bRotationFollowsVelocity = true;
@@ -50,9 +54,12 @@ void ASProjectileBase::Explode_Implementation()
 {
 	if (ensure(!IsPendingKill()))
 	{
+		
 		UGameplayStatics::SpawnEmitterAtLocation(this, ImpactVFX,
 			GetActorLocation(), GetActorRotation());
 
+		UGameplayStatics::PlaySoundAtLocation(this, AudioComp->Sound, GetActorLocation());
+		
 		Destroy();
 	}
 }
