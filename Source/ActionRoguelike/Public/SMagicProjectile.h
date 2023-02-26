@@ -30,6 +30,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UParticleSystemComponent* EffectComp;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Damage;
+
 protected:
 	
 	// Called when the game starts or when spawned
