@@ -4,6 +4,7 @@
 #include "SInteractionComponent.h"
 
 #include "SGameplayInterface.h"
+#include "Camera/CameraComponent.h"
 #include "Curves/CurveLinearColor.h"
 
 // Sets default values for this component's properties
@@ -28,9 +29,26 @@ void USInteractionComponent::PrimaryInteract()
 	FRotator EyeRotation;
 	
 	MyOwner->GetActorEyesViewPoint(EyeLocation, EyeRotation);
+	
+	TSubclassOf<UCameraComponent> CameraClass = UCameraComponent::StaticClass();
+	UCameraComponent* CameraComponent = Cast<UCameraComponent>(MyOwner->GetComponentByClass(CameraClass));
+	if (CameraComponent)
+	{
+		//FVector CameraLocation = CameraComponent->GetComponentLocation();
+		FVector CameraTargetLocation = CameraComponent->GetComponentLocation() + (CameraComponent->GetComponentRotation().Vector() * 1000.0f);
+
+		//Bad Option: Use Camera Rotation to Do Interact
+		//EyeRotation = (CameraTargetLocation - EyeLocation).Rotation();
+
+		//EyeLocation = CameraLocation;
+		//EyeRotation = CameraComponent->GetComponentRotation();
+	}
+	else
+	{
+		
+	}
 
 	Start = EyeLocation;
-	
 	End = EyeLocation + (EyeRotation.Vector() * 1000.0f);
 	
 	FHitResult Hit;

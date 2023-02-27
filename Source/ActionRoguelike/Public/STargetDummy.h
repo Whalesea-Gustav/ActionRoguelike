@@ -20,6 +20,9 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* MeshComp;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Damage")
+	float DamageAmount;
+	
 	UFUNCTION(BlueprintCallable)
 	void OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComp, float NewHealth, float Delta);
 	
