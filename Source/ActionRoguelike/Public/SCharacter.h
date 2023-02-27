@@ -36,8 +36,17 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Attack")
 	UAnimMontage* AttackAnim;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Effects")
+	UParticleSystem* CastingEffect;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Attack")
 	float AttackAnimDelay;
+
+	UPROPERTY(VisibleAnywhere, Category = "Effects")
+	FName TimeToHitParamName;
+	
+	UPROPERTY(EditAnywhere, Category = "Attack")
+	FName HandSocketName;
 	
 	FTimerHandle TimerHandle_PrimaryAttack;
 	FTimerHandle TimerHandle_BlackholeAttack;
@@ -65,6 +74,8 @@ protected:
 	void SpawnProjectile(TSubclassOf<AActor> ClassToSpawn);
 
 	void SpawnProjectile_v2(TSubclassOf<AActor> ClassToSpawn);
+
+	void StartAttackEffect();
 	
 	void PrimaryAttack();
 	void PrimaryAttack_TimeElapsed();

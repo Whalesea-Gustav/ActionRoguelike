@@ -8,7 +8,9 @@
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/ImportanceSamplingLibrary.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "Sound/SoundCue.h"
 
 // Sets default values
 ASProjectileBase::ASProjectileBase()
@@ -27,9 +29,10 @@ ASProjectileBase::ASProjectileBase()
 	AudioComp->SetupAttachment(RootComponent);
 	
 	MovementComp = CreateDefaultSubobject<UProjectileMovementComponent>("MovementComp");
-	MovementComp->InitialSpeed = 1000.0f;
 	MovementComp->bRotationFollowsVelocity = true;
 	MovementComp->bInitialVelocityInLocalSpace = true;
+	MovementComp->ProjectileGravityScale = 0.0f;
+	MovementComp->InitialSpeed = 8000;
 	
 }
 
@@ -54,11 +57,14 @@ void ASProjectileBase::Explode_Implementation()
 {
 	if (ensure(!IsPendingKill()))
 	{
+
+		DrawDebugSphere(GetWorld(), GetActorLocation(),
+			2.0f, 40, FColor::Red, false, 4.0f);
 		
 		UGameplayStatics::SpawnEmitterAtLocation(this, ImpactVFX,
 			GetActorLocation(), GetActorRotation());
 
-		UGameplayStatics::PlaySoundAtLocation(this, AudioComp->Sound, GetActorLocation());
+		UGameplayStatics::PlaySoundAtLocation(this, Cast<USoundBase>(ImpactSound), GetActorLocation());
 		
 		Destroy();
 	}

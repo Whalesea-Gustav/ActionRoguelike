@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "SProjectileBase.h"
-#include "SMagicProjectileCPP.generated.h"
+#include "SMagicProjectile_Proj.generated.h"
 
 class UParticleEmitter;
 class UParticleSystem;
@@ -14,17 +14,17 @@ class UAudioComponent;
  * 
  */
 UCLASS()
-class ACTIONROGUELIKE_API ASMagicProjectileCPP : public ASProjectileBase
+class ACTIONROGUELIKE_API ASMagicProjectile_Proj : public ASProjectileBase
 {
 	GENERATED_BODY()
 
-protected:
-	
-	virtual void BeginPlay() override;
-	
 public:
+	ASMagicProjectile_Proj();
+	
+protected:
 
-	ASMagicProjectileCPP();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Damage;
 	
 	UFUNCTION(BlueprintCallable)
 	void OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bBFromSweep, const FHitResult& SweepResult);
