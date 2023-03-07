@@ -18,7 +18,7 @@ void ASMagicProjectile_Proj::OnActorOverlap(UPrimitiveComponent* OverlappedCompo
 		USAttributeComponent* AttributeComp = Cast<USAttributeComponent> (OtherActor->GetComponentByClass(USAttributeComponent::StaticClass()));
 		if (AttributeComp)
 		{
-			AttributeComp->ApplyHealthChange(-1.0f * Damage);
+			AttributeComp->ApplyHealthChange(GetInstigator(), -1.0f * Damage);
 			Destroy();
 		}
 	}

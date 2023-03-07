@@ -7,6 +7,7 @@
 #include "SAICharacter.generated.h"
 
 class UPawnSensingComponent;
+class USAttributeComponent;
 
 UCLASS()
 class ACTIONROGUELIKE_API ASAICharacter : public ACharacter
@@ -22,8 +23,19 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "AI")
 	UPawnSensingComponent* PawnSensingComp;
 
+	UPROPERTY(VisibleAnywhere, Category = "Health")
+	USAttributeComponent* AttributeComp;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Health")
+	FName TimeToHitParamName;
+
+	void SetTargetActor(AActor* TargetActor);
+
 	UFUNCTION()
 	void OnPawnSeen(APawn* pawn);
+
+	UFUNCTION()
+	void OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComp, float NewHealth, float Delta);
 	
 	virtual void PostInitializeComponents() override;
 	

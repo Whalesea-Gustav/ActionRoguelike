@@ -30,6 +30,12 @@ protected:
 
 public:
 
+	UFUNCTION(BlueprintCallable, Category = "Attributes")
+	static USAttributeComponent* GetAttributeComponent(AActor* Actor);
+
+	UFUNCTION(BlueprintCallable, Category = "Attributes", meta = (DisplayName = "isAlive"))
+	static bool IsActorAlive(AActor* Actor);
+	
 	UFUNCTION(BlueprintCallable)
 	bool IsAlive() const;
 	
@@ -41,7 +47,7 @@ public:
 	FOnHealthChanged OnHealthChanged;
 	
 	UFUNCTION(BlueprintCallable, Category="Attributes")
-	bool ApplyHealthChange(float Delta);
+	bool ApplyHealthChange(AActor* InstigatorActor, float Delta);
 	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
