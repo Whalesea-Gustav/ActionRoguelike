@@ -20,6 +20,9 @@ class ACTIONROGUELIKE_API ASGameModeBase : public AGameModeBase
 
 protected:
 
+	UFUNCTION(Exec)
+	void KillAll();
+	
 	UPROPERTY(EditDefaultsOnly, Category = "AI")
 	UEnvQuery* SpawnBotQuery;
 	

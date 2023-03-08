@@ -8,6 +8,8 @@
 
 class UPawnSensingComponent;
 class USAttributeComponent;
+class USWorldUserWidget;
+class UUserWidget;
 
 UCLASS()
 class ACTIONROGUELIKE_API ASAICharacter : public ACharacter
@@ -26,6 +28,12 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Health")
 	USAttributeComponent* AttributeComp;
 
+	UPROPERTY(EditAnywhere, Category = "UI")
+	TSubclassOf<UUserWidget> HeatlhBarWidgetClass;
+
+	UPROPERTY(VisibleAnywhere, Category = "UI")
+	USWorldUserWidget* ActiveHealthBar;
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Health")
 	FName TimeToHitParamName;
 

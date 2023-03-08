@@ -8,6 +8,7 @@
 #include "SAttributeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Perception/PawnSensingComponent.h"
+#include "SWorldUserWidget.h"
 
 // Sets default values
 ASAICharacter::ASAICharacter()
@@ -74,10 +75,23 @@ inline void ASAICharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeC
 		{
 			SetTargetActor(InstigatorActor);
 		}
+
+		if (ActiveHealthBar == nullptr)
+		{
+			ActiveHealthBar =  CreateWidget<USWorldUserWidget>(GetWorld(), HeatlhBarWidgetClass);
+			
+			if (ActiveHealthBar)
+			{
+				ActiveHealthBar->AttachedActor = this;
+				ActiveHealthBar->AddToViewport();
+			}
+		}
 		
 		GetMesh()->SetScalarParameterValueOnMaterials(TimeToHitParamName, GetWorld()->TimeSeconds);	
 	}
 
+	
+	
 	if(NewHealth <= 0.0f && Delta < 0.0f)
 	{
 		AAIController* AIC = Cast<AAIController>(GetController());

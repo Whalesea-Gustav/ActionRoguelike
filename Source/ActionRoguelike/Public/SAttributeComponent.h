@@ -30,6 +30,9 @@ protected:
 
 public:
 
+	UFUNCTION(BlueprintCallable)
+	bool Kill(AActor* InstitagorActor);
+	
 	UFUNCTION(BlueprintCallable, Category = "Attributes")
 	static USAttributeComponent* GetAttributeComponent(AActor* Actor);
 
