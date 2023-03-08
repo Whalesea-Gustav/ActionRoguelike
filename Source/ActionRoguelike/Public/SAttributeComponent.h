@@ -32,12 +32,18 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool Kill(AActor* InstitagorActor);
+
+	UFUNCTION(BlueprintCallable)
+	bool HealFull(AActor* InstigatorActor);
 	
 	UFUNCTION(BlueprintCallable, Category = "Attributes")
 	static USAttributeComponent* GetAttributeComponent(AActor* Actor);
 
 	UFUNCTION(BlueprintCallable, Category = "Attributes", meta = (DisplayName = "isAlive"))
 	static bool IsActorAlive(AActor* Actor);
+
+	UFUNCTION(BlueprintCallable, Category = "Attributes")
+	static bool IsActorLowHealth(AActor* Actor, float threshold);
 	
 	UFUNCTION(BlueprintCallable)
 	bool IsAlive() const;

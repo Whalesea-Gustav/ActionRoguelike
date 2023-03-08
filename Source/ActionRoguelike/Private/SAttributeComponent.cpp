@@ -29,6 +29,11 @@ bool USAttributeComponent::Kill(AActor* InstitagorActor)
 	return ApplyHealthChange(InstitagorActor, -GetHealthMax());
 }
 
+bool USAttributeComponent::HealFull(AActor* InstigatorActor)
+{
+	return ApplyHealthChange(InstigatorActor, GetHealthMax());
+}
+
 USAttributeComponent* USAttributeComponent::GetAttributeComponent(AActor* Actor)
 {
 	USAttributeComponent* AttributeComp = Cast<USAttributeComponent>(Actor->GetComponentByClass(USAttributeComponent::StaticClass()));
@@ -46,6 +51,18 @@ bool USAttributeComponent::IsActorAlive(AActor* Actor)
 	}
 	
 	return false;														
+}
+
+bool USAttributeComponent::IsActorLowHealth(AActor* Actor, float threshold)
+{
+	USAttributeComponent* AttributeComp = USAttributeComponent::GetAttributeComponent(Actor);
+
+	if (AttributeComp)
+	{
+		return AttributeComp->Health < threshold * AttributeComp->HealthMax;
+	}
+
+	return false;
 }
 
 bool USAttributeComponent::IsAlive() const
@@ -66,7 +83,7 @@ float USAttributeComponent::GetHealthMax()
 bool USAttributeComponent::ApplyHealthChange(AActor* InstigatorActor, float Delta)
 {
 
-	if (!GetOwner()->CanBeDamaged())
+	if (Delta < 0.0f && !GetOwner()->CanBeDamaged())
 	{
 		return false;
 	}
