@@ -21,11 +21,16 @@ void USBTService_CheckLowHealth::TickNode(UBehaviorTreeComponent& OwnerComp, uin
 		
 		if (ensure(AIPawn))
 		{
-			bool bLowHealth = USAttributeComponent::IsActorLowHealth(AIPawn, 0.5);
+			bool bLowHealth = USAttributeComponent::IsActorLowHealth(AIPawn, LowHealthThreshold);
 
 			BlackboardComponent->SetValueAsBool(LowHealthKey.SelectedKeyName, bLowHealth);
 		}
 	}
 	
 
+}
+
+USBTService_CheckLowHealth::USBTService_CheckLowHealth()
+{
+	LowHealthThreshold = 0.4f;
 }

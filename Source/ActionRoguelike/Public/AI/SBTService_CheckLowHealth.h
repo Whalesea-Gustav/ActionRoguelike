@@ -18,6 +18,11 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "AI")
 	FBlackboardKeySelector LowHealthKey;
 
-	virtual void TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
+	float LowHealthThreshold;
 	
+	virtual void TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
+
+public:
+	USBTService_CheckLowHealth();
 };
