@@ -3,6 +3,8 @@
 
 #include "SAttributeComponent.h"
 
+#include "SGameModeBase.h"
+
 // Sets default values for this component's properties
 USAttributeComponent::USAttributeComponent()
 {
@@ -95,6 +97,15 @@ bool USAttributeComponent::ApplyHealthChange(AActor* InstigatorActor, float Delt
 	float ActualDelta = Health - OldHeath;
 	
 	OnHealthChanged.Broadcast(InstigatorActor, this, Health, ActualDelta);
+
+	if (ActualDelta < 0.0f && Health == 0.0f)
+	{
+		ASGameModeBase* GM = Cast<ASGameModeBase>(GetWorld()->GetAuthGameMode());
+		if (GM)
+		{
+			GM->OnActorKill(GetOwner(), InstigatorActor);
+		}
+	}
 	
 	return ActualDelta != 0.0f;
 }

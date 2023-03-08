@@ -37,6 +37,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "AI")
 	TSubclassOf<AActor> MinionClass;
 
+	UFUNCTION()
+	void RespawnPlayerElapsed(AController* Controller);
+	
 public:
 
 	ASGameModeBase();
@@ -48,6 +51,7 @@ public:
 	
 	virtual void StartPlay() override;
 
+	virtual void OnActorKill(AActor* VictimActor, AActor* KillerActor);
 	
 	
 };
