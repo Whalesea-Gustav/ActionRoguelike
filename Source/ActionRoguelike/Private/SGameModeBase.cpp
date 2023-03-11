@@ -10,6 +10,7 @@
 #include "EnvironmentQuery/EnvQueryManager.h"
 #include "EnvironmentQuery/EnvQueryTypes.h"
 
+static TAutoConsoleVariable<bool> CVarbSpawnBots(TEXT("su.bSpawnBots"), true, TEXT("Enable Spawning of Bots Via Timer."), ECVF_Cheat);
 
 void ASGameModeBase::KillAll()
 {
@@ -58,6 +59,12 @@ void ASGameModeBase::OnQueryCompleted(UEnvQueryInstanceBlueprintWrapper* QueryIn
 void ASGameModeBase::SpawnBotTimerElapsed()
 {
 
+	if(!CVarbSpawnBots.GetValueOnGameThread())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Bot Spawning diabled via car 'CVarbSpawnBots'."))
+		return;
+	}
+	
 	int32 NrofAliveBots = 0;
 
 	for (TActorIterator<ASAICharacter> It(GetWorld()); It; ++It)

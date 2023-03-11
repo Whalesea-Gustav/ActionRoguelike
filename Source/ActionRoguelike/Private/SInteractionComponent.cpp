@@ -7,6 +7,8 @@
 #include "Camera/CameraComponent.h"
 #include "Curves/CurveLinearColor.h"
 
+TAutoConsoleVariable<bool> CVarbbDebugDrawInteraction(TEXT("su.bInteractionDebugDraw"), false, TEXT("Enable Debug Lines for Interact Component."), ECVF_Cheat);
+
 // Sets default values for this component's properties
 USInteractionComponent::USInteractionComponent()
 {
@@ -19,6 +21,8 @@ USInteractionComponent::USInteractionComponent()
 
 void USInteractionComponent::PrimaryInteract()
 {
+	bool bDrawDebug = CVarbbDebugDrawInteraction.GetValueOnGameThread();
+	
 	FCollisionObjectQueryParams ObjectQueryParams;
 	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
 	
@@ -79,11 +83,12 @@ void USInteractionComponent::PrimaryInteract()
 				bBreak = true;
 			}
 		}
-		DrawDebugSphere(GetWorld(), LocalHit.ImpactPoint, Radius, 32, LineColor, false, 2.0f);
+		
+		if (bDrawDebug) DrawDebugSphere(GetWorld(), LocalHit.ImpactPoint, Radius, 32, LineColor, false, 2.0f);
 		if (bBreak) break;
 	}
 	
-	DrawDebugLine(GetWorld(), Start, End, LineColor, false, 2.0f, 0.0f, 2.0f);
+	if (bDrawDebug) DrawDebugLine(GetWorld(), Start, End, LineColor, false, 2.0f, 0.0f, 2.0f);
 }
 
 
