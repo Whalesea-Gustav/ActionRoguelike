@@ -10,6 +10,8 @@
 void USAction_ProjectileAttack::AttackDelay_Elapsed(ASCharacter* InstigatorCharacter)
 {
 	SpawnProjectile(InstigatorCharacter);
+	//Here call StopAction
+	StopAction(InstigatorCharacter);
 }
 
 void USAction_ProjectileAttack::StartAttackEffect(ASCharacter* InstigatorCharacter)
@@ -75,8 +77,6 @@ void USAction_ProjectileAttack::StartAction_Implementation(AActor* Instigator)
 		Delegate.BindUFunction(this, "AttackDelay_Elapsed", Character);
 		//world version, rather than 'GetWorldTimerManager().SetTimer()' which is available in AActor class
 		GetWorld()->GetTimerManager().SetTimer(TimerHandle_AttackDelay,  Delegate, AttackAnimDelay, false);
-		
-		StopAction(Character);
 	}
 	
 }

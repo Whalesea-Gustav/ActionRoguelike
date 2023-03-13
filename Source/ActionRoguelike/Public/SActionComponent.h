@@ -4,9 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "GameplayTagContainer.h"
+
 #include "SActionComponent.generated.h"
 
+
 class USAction;
+
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ACTIONROGUELIKE_API USActionComponent : public UActorComponent
@@ -14,8 +18,9 @@ class ACTIONROGUELIKE_API USActionComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	// Sets default values for this component's properties
-	USActionComponent();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tags")
+	FGameplayTagContainer ActiveGameplayTags;
 
 	UFUNCTION(BlueprintCallable, Category = "Action")
 	bool AddAction(TSubclassOf<USAction> ActionClass);
@@ -25,9 +30,11 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Action")
 	bool StopActionByName(AActor* Instigator, FName ActionName);
+
+	USActionComponent();
 	
 protected:
-
+	
 	UPROPERTY(EditAnywhere, Category = "Actions")
 	TArray<TSubclassOf<USAction>> DefaultActions;
 	
