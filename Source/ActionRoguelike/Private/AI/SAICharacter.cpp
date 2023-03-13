@@ -5,6 +5,7 @@
 
 #include "AIController.h"
 #include "BrainComponent.h"
+#include "SActionComponent.h"
 #include "SAttributeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Perception/PawnSensingComponent.h"
@@ -19,6 +20,8 @@ ASAICharacter::ASAICharacter()
 
 	AttributeComp = CreateDefaultSubobject<USAttributeComponent>("AttributeComp");
 
+	ActionComp = CreateDefaultSubobject<USActionComponent>("ActionComp");
+	
 	TimeToHitParamName = "TimeToHit";
 	
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;

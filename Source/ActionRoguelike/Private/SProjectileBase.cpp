@@ -29,6 +29,7 @@ ASProjectileBase::ASProjectileBase()
 	AudioComp->SetupAttachment(RootComponent);
 	
 	MovementComp = CreateDefaultSubobject<UProjectileMovementComponent>("MovementComp");
+	//change velocity will also change rotation
 	MovementComp->bRotationFollowsVelocity = true;
 	MovementComp->bInitialVelocityInLocalSpace = true;
 	MovementComp->ProjectileGravityScale = 0.0f;

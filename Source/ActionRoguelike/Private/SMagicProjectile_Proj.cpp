@@ -8,7 +8,9 @@
 #include "SAttributeComponent.h"
 #include "SGameplayFunctionLibrary.h"
 //#include "SGameplayInterface.h"
+#include "SActionComponent.h"
 #include "Components/AudioComponent.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 #include "Particles/ParticleSystem.h"
 
 
@@ -17,14 +19,18 @@ void ASMagicProjectile_Proj::OnActorOverlap(UPrimitiveComponent* OverlappedCompo
 {
 	if (OtherActor && OtherActor != GetInstigator())
 	{
-		// USAttributeComponent* AttributeComp = Cast<USAttributeComponent> (OtherActor->GetComponentByClass(USAttributeComponent::StaticClass()));
-		// if (AttributeComp)
-		// {
-		// 	AttributeComp->ApplyHealthChange(GetInstigator(), -1.0f * Damage);
-		// 	
-		// 	Destroy();
-		// }
 
+		//static FGameplayTag Tag = FGameplayTag::RequestGameplayTag(FName("State.Parrying"));
+		
+		USActionComponent* ActionComp = Cast<USActionComponent>(OtherActor->GetComponentByClass(USActionComponent::StaticClass()));
+		if (ActionComp && ActionComp->ActiveGameplayTags.HasTag(ParryTag))
+		{
+			MovementComp->Velocity = -1.f * MovementComp->Velocity;
+
+			SetInstigator(Cast<APawn>(OtherActor));
+			return;
+		}
+		
 		if(USGameplayFunctionLibrary::ApplyDirectionalDamage(GetInstigator(), OtherActor, Damage, SweepResult))
 		{
 			Explode();

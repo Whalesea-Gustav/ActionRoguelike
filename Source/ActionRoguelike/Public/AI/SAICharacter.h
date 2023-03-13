@@ -10,6 +10,7 @@ class UPawnSensingComponent;
 class USAttributeComponent;
 class USWorldUserWidget;
 class UUserWidget;
+class USActionComponent;
 
 UCLASS()
 class ACTIONROGUELIKE_API ASAICharacter : public ACharacter
@@ -22,12 +23,15 @@ public:
 
 protected:
 
-	UPROPERTY(VisibleAnywhere, Category = "AI")
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UPawnSensingComponent* PawnSensingComp;
 
-	UPROPERTY(VisibleAnywhere, Category = "Health")
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	USAttributeComponent* AttributeComp;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	USActionComponent* ActionComp;
+	
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UUserWidget> HeatlhBarWidgetClass;
 

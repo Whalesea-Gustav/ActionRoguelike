@@ -38,10 +38,10 @@ public:
 	UFUNCTION(BlueprintNativeEvent, Category = "Action")
 	bool CanStartAction(AActor* Instigator);
 	
-	UFUNCTION(BlueprintNativeEvent, Category = "Action")
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Action")
 	void StartAction(AActor* Instigator);
 
-	UFUNCTION(BlueprintNativeEvent, Category = "Action")
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Action")
 	void StopAction(AActor* Instigator);
 
 	UPROPERTY(EditDefaultsOnly, Category = "Action")

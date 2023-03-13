@@ -10,7 +10,7 @@
 
 USBTTask_RangedAttack::USBTTask_RangedAttack()
 {
-	MaxBulletSpread = 10.0f;
+	MaxBulletSpread = 3.0f;
 }
 
 EBTNodeResult::Type USBTTask_RangedAttack::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
