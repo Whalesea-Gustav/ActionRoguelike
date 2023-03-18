@@ -4,8 +4,10 @@
 #include "SGameModeBase.h"
 
 #include "EngineUtils.h"
+#include "ParticleHelper.h"
 #include "SAttributeComponent.h"
 #include "SCharacter.h"
+#include "SPlayerState.h"
 #include "AI/SAICharacter.h"
 #include "EnvironmentQuery/EnvQueryManager.h"
 #include "EnvironmentQuery/EnvQueryTypes.h"
@@ -37,6 +39,14 @@ void ASGameModeBase::RespawnPlayerElapsed(AController* Controller)
 ASGameModeBase::ASGameModeBase()
 {
 	SpawnTimerInterval = 2.0f;
+
+	CreditsPerKill = 5;
+
+	DesiredPowerupCount = 10;
+	RequiredPowerupDistance = 2000;
+
+	PlayerStateClass = ASPlayerState::StaticClass();
+	
 }
 
 void ASGameModeBase::OnQueryCompleted(UEnvQueryInstanceBlueprintWrapper* QueryInstance,
@@ -96,11 +106,71 @@ void ASGameModeBase::SpawnBotTimerElapsed()
 	QueryInstance->GetOnQueryFinishedEvent().AddDynamic(this, &ASGameModeBase::OnQueryCompleted);
 }
 
+void ASGameModeBase::OnPowerupQueryCompleted(UEnvQueryInstanceBlueprintWrapper* QueryInstance,
+	EEnvQueryStatus::Type QueryStatus)
+{
+	if(QueryStatus != EEnvQueryStatus::Success)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Spawn Powerup EQS Query Failed!"));
+		return;
+	}
+
+	TArray<FVector> Locations = QueryInstance->GetResultsAsLocations();
+
+	TArray<FVector> UsedLocation;
+
+	int32 SpawnCounter = 0;
+
+	while(SpawnCounter < DesiredPowerupCount && Locations.Num() > 0)
+	{
+		int32 RandomLocationIndex = FMath::RandRange(0, Locations.Num() - 1);
+
+		FVector PickedLcoation = Locations[RandomLocationIndex];
+
+		bool bValidLocation = true;
+
+		for (FVector OtherLocation : UsedLocation)
+		{
+			float DistanceInfo = (PickedLcoation - OtherLocation).Size();
+			if (DistanceInfo < RequiredPowerupDistance)
+			{
+				bValidLocation = false;
+				break;
+			}
+		}
+
+		if(!bValidLocation)
+		{
+			continue;
+		}
+
+		int32 RandomClassIndex = FMath::RandRange(0, PowerupClasses.Num() - 1);
+		TSubclassOf<AActor> RandomPowerupClass = PowerupClasses[RandomClassIndex];
+
+		GetWorld()->SpawnActor<AActor>(RandomPowerupClass, PickedLcoation, FRotator::ZeroRotator);
+		
+		UsedLocation.Add(PickedLcoation);
+		SpawnCounter++;
+	}
+}
+
 void ASGameModeBase::StartPlay()
 {
 	Super::StartPlay();
 
 	GetWorldTimerManager().SetTimer(TimerHandle_SpawnBots, this, &ASGameModeBase::SpawnBotTimerElapsed, SpawnTimerInterval, true);
+
+	if (ensure(PowerupClasses.Num() > 0))
+	{
+		UEnvQueryInstanceBlueprintWrapper* QueryInstance = UEnvQueryManager::RunEQSQuery(this, SpawnPowerupQuery,
+			this, EEnvQueryRunMode::AllMatching, nullptr);
+
+		if(ensure( QueryInstance))
+		{
+			//When Start Play, Generate All Powerup Actor from PowerupClass through random selection
+			QueryInstance->GetOnQueryFinishedEvent().AddDynamic(this, &ASGameModeBase::OnPowerupQueryCompleted);
+		}
+	}
 }
 
 void ASGameModeBase::OnActorKill(AActor* VictimActor, AActor* KillerActor)
@@ -116,6 +186,16 @@ void ASGameModeBase::OnActorKill(AActor* VictimActor, AActor* KillerActor)
 		float RespawnDelay = 2.0f;
 		GetWorldTimerManager().SetTimer(TimerHandle_PlayerRespawnDelay, Delegate, RespawnDelay, false);
 	}
-
+	
 	UE_LOG(LogTemp, Log, TEXT("OnActorKill: Victim: %s, Killer: %s"), *GetNameSafe(VictimActor), *GetNameSafe(KillerActor));
+
+	APawn* KillerPawn = Cast<APawn>(KillerActor);
+	if (KillerPawn)
+	{
+		ASPlayerState* PS = KillerPawn->GetPlayerState<ASPlayerState>();
+		if (PS)
+		{
+			PS->AddCredits(CreditsPerKill);
+		}
+	}
 }

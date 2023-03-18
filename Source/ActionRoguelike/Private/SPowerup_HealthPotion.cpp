@@ -5,6 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 
 #include "SAttributeComponent.h"
+#include "SPlayerState.h"
 
 void ASPowerup_HealthPotion::Interact_Implementation(APawn* InstigatorPawn)
 {
@@ -17,10 +18,14 @@ void ASPowerup_HealthPotion::Interact_Implementation(APawn* InstigatorPawn)
 	// Check if not already at max health
 	if (ensure(AttributeComp) && !AttributeComp->IsFullHealth())
 	{
-		// Only activate if healed successfully
-		if (AttributeComp->ApplyHealthChange(this, AttributeComp->GetHealthMax()))
+
+		if (ASPlayerState* PS = InstigatorPawn->GetPlayerState<ASPlayerState>())
 		{
-			HideAndCooldownPowerup();
+			// Only activate if healed successfully
+			if (PS->RemoveCredits(CreditCost) && AttributeComp->ApplyHealthChange(this, AttributeComp->GetHealthMax()))
+			{
+				HideAndCooldownPowerup();
+			}
 		}
 	}
 }
@@ -31,4 +36,6 @@ ASPowerup_HealthPotion::ASPowerup_HealthPotion()
 	// Disable collision, instead we use SphereComp to handle interaction queries
 	MeshComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	MeshComp->SetupAttachment(RootComponent);
+
+	CreditCost = 20;
 }

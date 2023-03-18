@@ -9,6 +9,7 @@
 
 class UEnvQuery;
 class UCurveFloat;
+class ASPowerupActor;
 
 /**
  * 
@@ -36,7 +37,22 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "AI")
 	TSubclassOf<AActor> MinionClass;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Credits")
+	int32 CreditsPerKill;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Powerup")
+	UEnvQuery* SpawnPowerupQuery;
+	
+	UPROPERTY(EditAnywhere, Category = "Powerup")
+	TArray<TSubclassOf<AActor>> PowerupClasses;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Powerup")
+	int DesiredPowerupCount;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Powerup")
+	int RequiredPowerupDistance;
+	
 	UFUNCTION()
 	void RespawnPlayerElapsed(AController* Controller);
 	
@@ -48,6 +64,9 @@ public:
 	void OnQueryCompleted(UEnvQueryInstanceBlueprintWrapper* QueryInstance, EEnvQueryStatus::Type QueryStatus);
 
 	void SpawnBotTimerElapsed();
+
+	UFUNCTION()
+	void OnPowerupQueryCompleted(UEnvQueryInstanceBlueprintWrapper* QueryInstance, EEnvQueryStatus::Type QueryStatus);
 	
 	virtual void StartPlay() override;
 
