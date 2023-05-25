@@ -7,6 +7,7 @@
 #include "SProjectileBase.h"
 #include "SMagicProjectile_Proj.generated.h"
 
+class USActionEffect;
 class UParticleEmitter;
 class UParticleSystem;
 class UAudioComponent;
@@ -29,6 +30,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Damage")
 	FGameplayTag ParryTag;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Damage")
+	TSubclassOf<USActionEffect> BurningActionClass;
 	
 	UFUNCTION(BlueprintCallable)
 	void OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bBFromSweep, const FHitResult& SweepResult);

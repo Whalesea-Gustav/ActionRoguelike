@@ -19,6 +19,7 @@ class ACTIONROGUELIKE_API USAction : public UObject
 
 protected:
 
+
 	UFUNCTION(BlueprintCallable, Category = "Action")
 	USActionComponent* GetOwningComponent() const;
 	
@@ -31,6 +32,9 @@ protected:
 	bool bIsRunning;
 	
 public:
+
+	UPROPERTY(EditDefaultsOnly, Category = "Action")
+	bool bAutoStart = false;
 
 	UFUNCTION(BlueprintCallable, Category = "Action")
 	bool IsRunning() const;
