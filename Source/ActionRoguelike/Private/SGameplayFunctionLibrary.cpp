@@ -13,6 +13,8 @@ TAutoConsoleVariable<float> CVarImpulseMultiplier(
 
 bool USGameplayFunctionLibrary::ApplyDamage(AActor* DamageActor, AActor* TargetActor, float DamageAmount)
 {
+	if(TargetActor == nullptr) return false;
+	
 	USAttributeComponent* AttributeComp = USAttributeComponent::GetAttributeComponent(TargetActor);
 	if (AttributeComp)
 	{
